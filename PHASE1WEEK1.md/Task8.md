@@ -75,6 +75,8 @@ Control binary size and performance in critical systems
 
 
 
+
+
 # Question-2: Compiler Optimization Concepts – Dead Code Elimination, Register Allocation, and Inlining
 
 ---
