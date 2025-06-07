@@ -1,0 +1,267 @@
+# Phase 1 – Week 1: hello-riscv
+
+---
+
+## 🔹 Question 1: Install and Sanity-Check the Toolchain
+
+**Question**  
+“I have downloaded riscv-toolchain-rv32imac-x86_64-ubuntu.tar.gz. How exactly do I unpack it, add it to PATH, and confirm the gcc, objdump, and gdb binaries work?”
+
+Objective: To install and verify a working RISC-V toolchain on a Linux machine.
+
+**Steps Taken**
+
+1. Downloaded the toolchain:
+   ```bash
+   wget https://vsd-labs.sgp1.cdn.digitaloceanspaces.com/vsd-labs/riscv-toolchain-rv32imac-x86_64-ubuntu.tar.gz
+2. Created an install directory and extracted:
+  mkdir -p ~/opt
+tar -xvzf riscv-toolchain-rv32imac-x86_64-ubuntu.tar.gz -C ~/opt
+3. Updated PATH:
+echo 'export PATH=$HOME/opt/riscv/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+4. Verified installation:
+riscv32-unknown-elf-gcc --version
+riscv32-unknown-elf-objdump --version
+riscv32-unknown-elf-gdb --version
+5. Output- 
+riscv32-unknown-elf-gcc (GCC) 14.2.0
+riscv32-unknown-elf-objdump (GNU Binutils) 2.40
+riscv32-unknown-elf-gdb (GDB) 15.2
+6. output image : file:///home/janya/Pictures/Screenshot%20from%202025-06-07%2001-59-05.png
+
+Use: Enables RISC-V program compilation, disassembly, and debugging using open-source tools.
+
+
+## Question 2: Create a Minimal C File and Compile It
+
+### Question:
+“Write the simplest C program and compile it using riscv32-unknown-elf-gcc to produce a working ELF file.”
+
+---
+Objective: To write and compile the simplest bare-metal C program using the installed toolchain.
+
+### ✅ What I Did:
+
+1. Opened the terminal and created a new C file:
+   ```bash
+   nano hello.c
+2. Wrote the minimal C program:
+3. Saved and exited nano:
+
+Press Ctrl + O, then Enter (to save)
+
+Then Ctrl + X (to exit)
+4. Compiling the C File : riscv32-unknown-elf-gcc -o hello.elf hello.c
+5. Result:
+An ELF file named hello.elf was created.
+
+Verified with : file hello.elf
+6. output : hello.elf: ELF 32-bit LSB executable, UCB RISC-V, ...
+7. Status: Successfully created and compiled a minimal C program into a RISC-V ELF binary
+8. output image : file:///home/janya/Pictures/Screenshot%20from%202025-06-07%2002-21-04.png
+Use: Validates the toolchain setup and prepares a minimal RISC-V executable (ELF).
+
+## Question 3: Compile C to Assembly (.s file)
+
+---
+
+### 🎯 Objective:
+To generate human-readable RISC-V assembly instructions from a C program by compiling it into a `.s` file.
+
+### 🛠 Use:
+Understanding how high-level C code is translated into RISC-V assembly during the compilation process.
+
+---
+
+### ✅ What I Did:
+
+1. First, I wrote a simple C program:
+
+```c
+int main() {
+    int a = 5;
+    int b = 10;
+    int c = a + b;
+    return c;
+}
+2. Then I compiled it to assembly using: riscv32-unknown-elf-gcc -march=rv32imac -mabi=ilp32 -S -O0 hello.c
+3. -S: Generates assembly output instead of machine code
+
+-O0: No optimization (to preserve exact C-to-assembly mapping
+4. result : This generated a file named hello.s containing raw RISC-V assembly.
+5. Tools Used:
+riscv32-unknown-elf-gcc — cross compiler
+
+No extra libraries were required for this step
+
+6. tatus:
+Successfully compiled the C code to assembly using -S flag, and the resulting .s file shows instruction-level mapping of high-level operations.
+7. output image : file:///home/janya/Pictures/Screenshot%20from%202025-06-07%2015-00-40.png
+
+
+
+## Question 4: Disassemble the ELF
+
+### Question:
+“How can I disassemble the ELF file and see the actual RISC-V instructions?”
+
+---
+
+Objective: To disassemble the compiled ELF file using objdump and inspect RISC-V instructions.
+
+### ✅ What I Did:
+
+1. Used the RISC-V `objdump` tool to disassemble the `hello.elf` file and inspect the machine instructions.
+
+2. Command used:
+   ```bash
+   riscv32-unknown-elf-objdump -d hello.elf
+3. Sample Output:
+hello.elf:     file format elf32-littleriscv
+
+Disassembly of section .text:
+
+00010090 <main>:
+   10090:  00000513     li a0,0
+   10094:  00008067     ret
+| Column     | Meaning                                        |
+| ---------- | ---------------------------------------------- |
+| `10090:`   | Memory address where the instruction resides   |
+| `00000513` | Opcode (hex representation of the instruction) |
+| `li a0, 0` | Human-readable assembly instruction            |
+4. Bonus – Get Only Opcodes:
+To extract just the hex opcodes:riscv32-unknown-elf-objdump -d hello.elf | grep '^ ' | cut -f2
+5. Status: ELF disassembled successfully, and opcodes + assembly confirmed to match RISC-V ISA
+6. output image - file:///home/janya/Pictures/Screenshot%20from%202025-06-07%2015-21-20.png
+7. Use: Helps understand how C code translates to RISC-V opcodes and instructions.
+
+## Question 5: RISC-V ABI and Register Cheat Sheet
+
+---
+
+### 🎯 Objective:
+To study the RISC-V ABI (Application Binary Interface) and document the purpose of each general-purpose register.
+
+### 🛠 Use:
+The ABI is essential for understanding how functions pass parameters, return values, and how registers are preserved or overwritten during execution — especially during debugging and assembly-level work.
+
+---
+
+### 📘 What is the RISC-V ABI?
+
+The **RISC-V ABI** defines:
+
+- Naming of the 32 general-purpose registers (x0–x31)
+- Their aliases (like `a0`, `s1`, `t0`, etc.)
+- Their roles (e.g., function arguments, return values, saved temps)
+
+---
+
+### 🧾 Register Cheat Sheet:
+
+| Register | Alias | Role                          | Convention           |
+|----------|-------|-------------------------------|----------------------|
+| x0       | zero  | Always 0                      | Constant             |
+| x1       | ra    | Return address                | Caller-saved         |
+| x2       | sp    | Stack pointer                 | Callee-saved         |
+| x3       | gp    | Global pointer                | Callee-saved         |
+| x4       | tp    | Thread pointer                | Callee-saved         |
+| x5–x7    | t0–t2 | Temporaries                   | Caller-saved         |
+| x8       | s0/fp | Saved register / frame ptr    | Callee-saved         |
+| x9       | s1    | Saved register                | Callee-saved         |
+| x10–x11  | a0–a1 | Function arguments / return values | Caller-saved     |
+| x12–x17  | a2–a7 | Function arguments             | Caller-saved         |
+| x18–x27  | s2–s11| Saved registers               | Callee-saved         |
+| x28–x31  | t3–t6 | Temporaries                   | Caller-saved         |
+
+---
+
+### 🛠 Tools Used:
+
+No commands or binaries were required for this task — it was a research and documentation-based question.
+
+---
+
+### 📄 Additional Notes:
+
+- **Caller-saved registers** (like `t0–t6`, `a0–a7`) may be **overwritten** by a called function.
+- **Callee-saved registers** (like `s0–s11`) must be **preserved** across function calls.
+- The `sp` (stack pointer) and `fp` (frame pointer) help in memory access and stack frame navigation during debugging.
+
+---
+
+### ✅ Status:
+Created a complete register cheat sheet based on the RISC-V ABI. This helps immensely while using `objdump`, `gdb`, or writing low-level RISC-V assembly.
+
+---
+
+image : file:///home/janya/Downloads/Screenshot%202025-06-07%20at%2022-38-53%20ques%205%20(PNG%20Image%201920%20%C3%97%201080%20pixels)%20%E2%80%94%20Scaled%20(89%25).png
+
+
+## Question 6: Debug ELF with GDB – Stepping Through Instructions
+
+---
+
+### 🎯 Objective:
+To launch `riscv32-unknown-elf-gdb` on an ELF binary, set a breakpoint, step through instructions, and inspect registers.
+
+### 🛠 Use:
+Debugging with GDB helps trace program execution flow and monitor register-level changes — essential in bare-metal and SoC development.
+
+---
+
+### ✅ What I Did:
+
+#### 🔹 Step 1: Compiled C file with debug info
+
+```bash
+riscv32-unknown-elf-gcc -g -o hello.elf hello.c
+
+
+2. Compiled using:
+riscv32-unknown-elf-gcc -g -o hello.elf hello.c
+(-g: Includes debug symbols (required for stepping in GDB)
+
+
+3. initial Issue with GDB : target sim
+Running riscv32-unknown-elf-gdb hello.elf showed this error:error while loading shared libraries: libpython3.10.so.1.0: cannot open shared object file: No such file or directory
+
+4. Fix: Installed Python 3.10 Manually
+
+5. Debugging Flow in GDB:
+   a. Start GDB:riscv32-unknown-elf-gdb hello.elf
+   b. Inside GDB:target sim
+break main
+run
+step
+info registers
+
+6. sample output: 
+Breakpoint 1, main () at hello.c:1
+(gdb) step
+(gdb) info registers
+ra     0x00000000
+sp     0x80000000
+a0     0x00000000
+...
+
+
+7. Tools Used:
+riscv32-unknown-elf-gcc (with -g flag)
+
+riscv32-unknown-elf-gdb
+
+Installed libpython3.10 manually to fix runtime error
+
+Used target sim to simulate CPU execution
+8. status:
+GDB environment successfully setup. Breakpoints, stepping, and register inspection tested and verified.
+9. output image: file:///home/janya/Pictures/ques%206%20a%20
+                file:///home/janya/Pictures/ques%206%20%20b
+
+
+
+
+
+
