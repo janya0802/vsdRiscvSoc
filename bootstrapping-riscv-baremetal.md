@@ -78,6 +78,7 @@ Understanding how high-level C code is translated into RISC-V assembly during th
 
 1. First, I wrote a simple C program:
 
+
 ```c
 int main() {
     int a = 5;
@@ -100,8 +101,7 @@ Successfully compiled the C code to assembly using -S flag, and the resulting .s
 7. output image : file:///home/janya/Pictures/Screenshot%20from%202025-06-07%2015-00-40.png
 
 
-
-## Question 4: Disassemble the ELF
+##### Question 4: Disassemble the ELF
 
 ### Question:
 “How can I disassemble the ELF file and see the actual RISC-V instructions?”
@@ -259,6 +259,7 @@ Used target sim to simulate CPU execution
 GDB environment successfully setup. Breakpoints, stepping, and register inspection tested and verified.
 9. output image: file:///home/janya/Pictures/ques%206%20a%20
                 file:///home/janya/Pictures/ques%206%20%20b
+
 
 
 
