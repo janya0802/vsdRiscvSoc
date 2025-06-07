@@ -524,6 +524,75 @@ images - file:///home/janya/Pictures/9%20b%20
        file:///home/janya/Pictures/9d
 
 
+## 🔌 Question 10 – Memory-Mapped I/O Demo
+
+---
+
+## 🎯 Objective
+
+To demonstrate a **bare-metal memory-mapped I/O** operation in RISC-V using C by writing to a specific memory address (in this case, `0x10012000`, a GPIO-mapped address), and to understand how the `volatile` keyword prevents the compiler from optimizing away hardware-accessing instructions.
+
+---
+
+## 📚 Background
+
+In embedded systems, peripheral devices such as GPIOs, UARTs, and timers are often accessed via **memory-mapped I/O**. This means certain memory addresses correspond directly to hardware registers. To safely access these registers in C:
+
+- The pointer to the hardware address must be declared `volatile`
+- The compiler must not remove or reorder memory access instructions
+- Proper alignment is necessary (e.g., `uint32_t` requires 4-byte alignment)
+
+---
+
+## 🔧 Code (gpio_toggle.c)
+
+#include <stdint.h>
+
+int main() {
+    volatile uint32_t *gpio = (uint32_t*)0x10012000;
+    *gpio = 0x1;  // Toggle the GPIO by writing 1
+    return 0;
+}
+
+🛠️ Linker Script (link.ld)
+ENTRY(main)
+
+SECTIONS {
+  . = 0x10000;
+  .text : { *(.text*) }
+  .rodata : { *(.rodata*) }
+  .data : { *(.data*) }
+  .bss : { *(.bss*) }
+  /DISCARD/ : { *(.comment) }
+}
+
+🧪 Compilation : riscv32-unknown-elf-gcc -o gpio_toggle.elf gpio_toggle.c -march=rv32imac -mabi=ilp32 -nostartfiles -T link.ld
+🚀 Execution  : qemu-system-riscv32 -nographic -machine sifive_e -kernel gpio_toggle.elf
+
+⚠️ Note: No output appears in the terminal because 0x10012000 is not emulated in QEMU. The write happens internally, but QEMU doesn’t simulate any visible peripheral at that address.
+🔍 How We Verified the File Works (Even Without Output)
+We used objdump to disassemble the ELF and confirm the correct instructions were generated: riscv32-unknown-elf-objdump -d gpio_toggle.elf | less
+
+🧠 Importance of volatile : volatile uint32_t *gpio = (uint32_t*)0x10012000; : This line is critical because:
+
+Without volatile, the compiler may think the memory write is unnecessary and remove it.
+
+volatile ensures the write instruction stays in the compiled output — this is essential for I/O and register access.
+
+🧩 Uses & Applications
+| Use Case                               | Description                                    |
+| -------------------------------------- | ---------------------------------------------- |
+| Toggle GPIO                            | Used in LED control, input pins, etc.          |
+| Embedded Bare-Metal Development        | No OS needed — direct hardware control         |
+| System-on-Chip (SoC) peripheral access | UART, SPI, I2C, etc., are often memory-mapped  |
+| Low-level debugging                    | Helps verify compiler behavior and instruction |
+
+📝 Conclusion
+Even though we didn’t see visible output in the terminal, the gpio_toggle.elf binary was successfully built and verified using disassembly. This task highlights how memory-mapped I/O works in RISC-V, the significance of volatile, and the power of examining compiled ELF files in embedded systems development.
+images - file:///home/janya/Pictures/10%20a
+         file:///home/janya/Pictures/10%20b%20
+
+
 
 
 
