@@ -102,6 +102,7 @@ No extra libraries were required for this step
 Successfully compiled the C code to assembly using -S flag, and the resulting .s file shows instruction-level mapping of high-level operations.
 7. output image : file:///home/janya/Pictures/Screenshot%20from%202025-06-07%2015-00-40.png
 
+-----
 
 ##### Question 4: Disassemble the ELF
 
