@@ -102,7 +102,7 @@ Successfully compiled the C code to assembly using -S flag, and the resulting .s
 
 -----
 
-##### Question 4: Disassemble the ELF
+## Question 4: Disassemble the ELF
 
 ### Question:
 “How can I disassemble the ELF file and see the actual RISC-V instructions?”
@@ -305,10 +305,129 @@ SECTIONS
 
  Commands Used -
 Compiling the ELF:
-bash
-Copy
 riscv32-unknown-elf-gcc -nostdlib -T link.ld -o hello_uart.elf hello_uart.c
 
+ Attempt 1: Using sifive_e board:
+qemu-system-riscv32 -M sifive_e -nographic -kernel hello_uart.elf
+
+
+Attempt 2: Using virt board:
+qemu-system-riscv32 -M virt -nographic -kernel hello_uart.elf
+Unable to find the RISC-V BIOS "opensbi-riscv32-generic-fw_dynamic.bin"
+
+❌ This produced the following error:
+Unable to find the RISC-V BIOS "opensbi-riscv32-generic-fw_dynamic.bin"
+
+Tried to fix using:wget https://github.com/riscv-software-src/opensbi/releases/download/v1.3/opensbi-1.3-riscv32-generic/fw_dynamic.bin -O opensbi-riscv32-generic-fw_dynamic.bin
+Even after supplying BIOS using:qemu-system-riscv32 -M virt -nographic -bios opensbi-riscv32-generic-fw_dynamic.bin -kernel hello_uart.elf
+
+QEMU loaded but
+❌ Still no UART output
+
+Final Status
+Despite all attempts using both sifive_e and virt boards, no UART output was received. Compilation and ELF creation succeeded, but no visible output appeared on the UART console.
+
+Learnings and Use
+Learned how to create bare-metal C programs targeting RISC-V with UART memory mapping.
+
+Understood differences between QEMU machines (sifive_e vs virt).
+
+Learned how to troubleshoot linker errors, entry points (_start), and BIOS issues.
+
+ Conclusion
+This task involved running a UART-based ELF file in QEMU. Even after all corrections — including memory map, UART address, linker setup, and BIOS insertion — no UART output was achieved.
+
+The task highlighted:
+
+The complexity of low-level I/O emulation
+
+How to troubleshoot peripheral output
+
+The importance of carefully reading specs (MMIO, board documentation)
+
+This likely serves as a debugging milestone rather than an output-producing task.
+
+image : file:///home/janya/Pictures/ques%207a
+      : file:///home/janya/Pictures/ques%207b 
+
+
+## Question 8 - Exploring GCC Optimization
+
+---
+
+## 🎯 Objective
+
+To understand the impact of different **GCC optimization levels**, especially between `-O0` and `-O2`, by analyzing the changes in the generated assembly code. This task helps explore how compilers improve performance, reduce instruction count, and remove unnecessary operations in embedded systems programming.
+
+---
+
+## 🧰 Tools and Environment
+
+| Tool / Component         | Version                         |
+|--------------------------|----------------------------------|
+| OS                       | Ubuntu (running inside VirtualBox) |
+| Compiler                 | `riscv32-unknown-elf-gcc` v14.2.0 |
+| GCC Optimization Levels  | `-O0`, `-O2`                     |
+| Output Format            | Assembly (`.s`) files            |
+
+---
+
+## 📄 C Code: `opt_test.c`
+
+int square(int x) {
+    return x * x;
+}
+
+int main() {
+    volatile int a = 5;
+    volatile int b = square(a);
+    return 0;
+}
+
+Compilation Commands : # Compile with no optimization
+riscv32-unknown-elf-gcc -S -O0 opt_test.c -o opt_O0.s
+
+# Compile with optimization level 2
+riscv32-unknown-elf-gcc -S -O2 opt_test.c -o opt_O2.s
+
+-S: Tells GCC to generate assembly code.
+
+-O0: No optimization — all code is preserved.
+
+-O2: Performs high-level optimization.
+
+Output Files
+Filename	Description
+opt_O0.s	Assembly output with -O0
+opt_O2.s	Assembly output with -O2
+
+Observed Assembly Differences (diff opt_O0.s opt_O2.s)
+<    call square
+---
+>    li a5, 25
+
+ Reason for Differences-
+ | Feature           | -O0                  | -O2                        |
+| ----------------- | -------------------- | -------------------------- |
+| Function inlining | ❌ Not applied        | ✅ Applied (avoids call)    |
+| Constant folding  | ❌ Not performed      | ✅ Performed (`5 * 5 → 25`) |
+| Code size         | 🔺 Larger            | 🔻 Smaller                 |
+| Instruction count | 🔺 More instructions | 🔻 Fewer instructions      |
+| Performance       | 🐢 Slower            | 🚀 Faster                  |
+
+ Conclusion & Learnings- 
+ Compiler optimizations eliminate unnecessary runtime operations, such as redundant function calls and calculations.
+
+Using -O2 greatly improves efficiency by applying techniques like:
+
+Constant folding
+
+Function inlining
+
+Dead code elimination
+
+Developers can control performance and size by choosing the right optimization level during compilation.
+image - file:///home/janya/Pictures/8a
 
 
 
