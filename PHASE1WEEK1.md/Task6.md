@@ -7,9 +7,9 @@ To step through a RISC-V compiled C program using the **GDB (GNU Debugger)** for
 
 ---
 
-## 📁 step 1 : create a source file : nano hello.c 
+### 📁 step 1 : create a source file : nano hello.c 
 
-## 📁 Step 2 : Write the code -
+### 📁 Step 2 : Write the code -
 ---
 #include <stdio.h>
 
@@ -20,10 +20,10 @@ int main() {
 }
 ---
 
-##  🛠️ Step 3 : Compile with GDB Support 
+###  🛠️ Step 3 : Compile with GDB Support 
 riscv32-unknown-elf-gcc -g -o hello.elf hello.c
 
-## 🧪 Step 3: Launch GDB
+### 🧪 Step 4 : Launch GDB
 riscv32-unknown-elf-gdb hello.elf
 
 ###⚠️ Issue Faced: Missing libpython3.10.so.1.0
@@ -32,7 +32,7 @@ riscv32-unknown-elf-gdb: error while loading shared libraries: libpython3.10.so.
 ### 🛠️ Fix for libpython Error: 
 downloaded python library using sudo apt python3.10 and sudo pythondev3.10 
 
-## 🧭 Step 4: Use GDB Commands to Explore
+### 🧭 Step 5 : Use GDB Commands to Explore
 
 (gdb) layout src       # View source code
 (gdb) break main       # Set breakpoint at main
