@@ -78,8 +78,6 @@ Understanding how high-level C code is translated into RISC-V assembly during th
 
 1. First, I wrote a simple C program:
 
-
-```c
 int main() {
     int a = 5;
     int b = 10;
@@ -218,7 +216,6 @@ Debugging with GDB helps trace program execution flow and monitor register-level
 
 #### 🔹 Step 1: Compiled C file with debug info
 
-```bash
 riscv32-unknown-elf-gcc -g -o hello.elf hello.c
 
 
@@ -286,7 +283,6 @@ To run a compiled RISC-V ELF file on an emulator (like `QEMU`) and observe the o
 
 ## 🧪 C Program (`hello_uart.c`)
 
-```c
 #define UART0 0x10013000
 void _start() {
     volatile char *uart = (char *)UART0;
@@ -306,6 +302,13 @@ SECTIONS
   .data : { *(.data*) }
   .bss  : { *(.bss*) }
 }
+
+ Commands Used -
+Compiling the ELF:
+bash
+Copy
+riscv32-unknown-elf-gcc -nostdlib -T link.ld -o hello_uart.elf hello_uart.c
+
 
 
 
