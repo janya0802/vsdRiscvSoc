@@ -86,6 +86,8 @@ int main() {
     int c = a + b;
     return c;
 }
+'''
+
 2. Then I compiled it to assembly using: riscv32-unknown-elf-gcc -march=rv32imac -mabi=ilp32 -S -O0 hello.c
 3. -S: Generates assembly output instead of machine code
 
@@ -259,6 +261,51 @@ Used target sim to simulate CPU execution
 GDB environment successfully setup. Breakpoints, stepping, and register inspection tested and verified.
 9. output image: file:///home/janya/Pictures/ques%206%20a%20
                 file:///home/janya/Pictures/ques%206%20%20b
+
+## Question 7 - Running ELF on Emulator (UART Output)
+
+---
+
+## 🎯 Objective
+
+To run a compiled RISC-V ELF file on an emulator (like `QEMU`) and observe the output via UART. This tests whether we can interact with UART peripherals on a simulated RISC-V board in a bare-metal environment.
+
+---
+
+## 🧰 Tools and Setup
+
+- **Host OS**: Ubuntu (running on VirtualBox)
+- **Compiler**: `riscv32-unknown-elf-gcc` (v14.2.0)
+- **Emulator**: `qemu-system-riscv32` (v8.2.2)
+- **Board Tried**: 
+  - `sifive_e` (works without BIOS)
+  - `virt` (requires BIOS file)
+
+---
+
+## 🧪 C Program (`hello_uart.c`)
+
+```c
+#define UART0 0x10013000
+void _start() {
+    volatile char *uart = (char *)UART0;
+    const char *msg = "Hello from UART\n";
+    while (*msg) {
+        *uart = *msg++;
+    }
+    while (1); // Prevent exit
+}
+
+Linker Script ENTRY(_start)
+
+SECTIONS
+{
+  . = 0x80000000;
+  .text : { *(.text*) }
+  .data : { *(.data*) }
+  .bss  : { *(.bss*) }
+}
+
 
 
 
