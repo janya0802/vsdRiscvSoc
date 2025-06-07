@@ -1,7 +1,7 @@
 # Task-2: Compile "Hello, RISC-V"
 
 ## Objective:
-To write and compile the simplest bare-metal C program using the installed toolchain.
+##### To write and compile the simplest bare-metal C program using the installed toolchain.
 ---
 
 We will write a very basic hello world kind of program in c and will cross-compile for rv32imc architecture, and verify the output elf file.
