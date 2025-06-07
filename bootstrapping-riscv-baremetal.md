@@ -84,7 +84,7 @@ int main() {
     int c = a + b;
     return c;
 }
-'''
+
 
 2. Then I compiled it to assembly using: riscv32-unknown-elf-gcc -march=rv32imac -mabi=ilp32 -S -O0 hello.c
 3. -S: Generates assembly output instead of machine code
