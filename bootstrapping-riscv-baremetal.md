@@ -280,7 +280,7 @@ To run a compiled RISC-V ELF file on an emulator (like `QEMU`) and observe the o
   - `virt` (requires BIOS file)
 
 ---
-
+'''
 ## 🧪 C Program (`hello_uart.c`)
 
 #define UART0 0x10013000
