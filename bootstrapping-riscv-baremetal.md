@@ -44,7 +44,7 @@ Objective: To write and compile the simplest bare-metal C program using the inst
 ### ✅ What I Did:
 
 1. Opened the terminal and created a new C file:
-   ```bash
+   
    nano hello.c
 2. Wrote the minimal C program:
 3. Saved and exited nano:
