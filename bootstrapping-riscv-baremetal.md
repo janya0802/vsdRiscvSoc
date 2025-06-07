@@ -429,6 +429,104 @@ Dead code elimination
 Developers can control performance and size by choosing the right optimization level during compilation.
 image - file:///home/janya/Pictures/8a
 
+##  Question 9 – Inline Assembly Basics
+
+---
+
+## 🎯 Objective
+
+To explore the concept of **inline assembly** in C using the `riscv32-unknown-elf-gcc` toolchain, and understand how to embed RISC-V instructions directly in C code for low-level hardware interaction and performance tuning.
+
+---
+
+## 🧰 Tools and Setup
+
+| Tool / Component          | Version                    |
+|---------------------------|----------------------------|
+| OS                        | Ubuntu in VirtualBox       |
+| Compiler                  | riscv32-unknown-elf-gcc v14.2.0 |
+| Architecture              | RISC-V (RV32I)             |
+| Output Type               | `.s` (assembly file) and `.elf` |
+
+---
+
+## 📄 Example 1: Move Immediate (`li`) with Inline Assembly
+
+### 🔸 Code (File: `inline_asm.c`)
+
+
+int main() {
+    int result;
+
+    __asm__ volatile (
+        "li %0, 42"
+        : "=r" (result)
+    );
+
+    return result;
+}
+
+    );
+
+    return result;
+}
+
+Compilation : riscv32-unknown-elf-gcc -S -O0 inline_asm.c -o inline_asm.s
+Assembly Output : li a5, 42
+
+.
+
+📄 Example 2: Addition Using Inline Assembly
+🔸 Code (File: inline_add.c)
+int main() {
+    int a = 10, b = 20, result;
+
+    __asm__ volatile (
+        "add %0, %1, %2"
+        : "=r" (result)
+        : "r" (a), "r" (b)
+    );
+
+    return result;
+}
+🔧 Compilation : riscv32-unknown-elf-gcc -S -O0 inline_add.c -o inline_add.s
+📂 Key Assembly Output  : li      a5,10
+li      a5,20
+...
+# Inline Assembly:
+add     a5, a5, a4
+
+🧠 Learning and Use Cases
+| Feature            | Purpose                       |
+| ------------------ | ----------------------------- |
+| `asm` or `__asm__` | Embed custom assembly         |
+| `volatile`         | Prevent compiler optimization |
+| `"r"` vs `"=r"`    | Input vs Output operands      |
+| `%0`, `%1`, `%2`   | Placeholders for registers    |
+
+🔄 Common Use Cases:
+Custom peripheral access
+
+Performance tuning in time-critical sections
+
+Working in bare-metal systems with limited libraries
+
+✅ Conclusion
+Inline assembly is a powerful tool when working with embedded systems and low-level hardware programming. Through these examples, we learned to:
+
+Embed RISC-V assembly directly into C
+
+Pass input and output between C and assembly
+
+Observe how the compiler translates it into raw machine instructions
+
+images - file:///home/janya/Pictures/9%20b%20
+       file:///home/janya/Pictures/9d
+
+
+
+
+
 
 
 
