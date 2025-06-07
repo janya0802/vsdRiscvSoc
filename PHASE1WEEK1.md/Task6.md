@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/dfbb7df2-806a-4d2a-9998-2e28cdb541aa)# Task-6: Stepping Through Code with GDB
+# Task-6: Stepping Through Code with GDB
 
 ---
 
