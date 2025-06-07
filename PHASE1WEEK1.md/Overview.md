@@ -1,4 +1,4 @@
-# 🚀 VSD RISC-V Internship – Phase 1 Week 1  
+# 🚀 bootstrapping-riscv-baremetal – Phase 1 Week 1  
 ### 🔧 Toolchain Exploration • 🧠 Architecture Understanding • 🖥️ Bare-Metal Programming
 
 ---
