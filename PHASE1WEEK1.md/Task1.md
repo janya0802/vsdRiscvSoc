@@ -1,4 +1,4 @@
-# Task-1: 🛠️Install & Sanity-Check the RISC-V Toolchain
+# Task-1: 🛠️ Install & Sanity-Check the RISC-V Toolchain
 
 The goal is to download, install and verify the risc-v toolchain on pc.
 
@@ -10,19 +10,19 @@ To install and verify a working RISC-V toolchain on a Linux machine.
 Download the RISC-V toolchain from the following link:
 🔗 riscv-toolchain-rv32imac-x86_64-ubuntu.tar.gz
 
-## Step 2:📂 Extract the Toolchain
+## Step 2: 📂 Extract the Toolchain
 Open a terminal and run:
  cd ~/Downloads
  tar -xzf riscv-toolchain-rv32imac-x86_64-ubuntu.tar.gz
  
- ## Step 3:⚙️ Add Toolchain to PATH
+ ## Step 3: ⚙️ Add Toolchain to PATH
  Edit your ~/.bashrc file and add the toolchain to your PATH:
 
 ➡️vim ~/.bashrc
 #### Add the following line at the end of the file:
 export PATH=$PATH:~/Downloads/riscv-toolchain-rv32imac-x86_64-ubuntu/bin
 
-##Step 4:✅  Verify the Installation
+## Step 4: ✅ Verify the Installation
 Check if the toolchain is installed correctly:
 riscv32-unknown-elf-gcc --version
 riscv32-unknown-elf-objdump --version
