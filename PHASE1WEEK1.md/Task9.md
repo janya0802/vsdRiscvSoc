@@ -39,7 +39,8 @@ This version uses __asm__ volatile to prevent the compiler from optimizing away 
 ## Step 2 : 🛠️ Compilation Command - 
 riscv32-unknown-elf-gcc -S -o inline_add_mem.s inline_add_mem.c
 
-## Output - ![image](https://github.com/user-attachments/assets/f3259696-7fc4-406d-b2fc-1e59157c033f)
+## Output -
+![image](https://github.com/user-attachments/assets/f3259696-7fc4-406d-b2fc-1e59157c033f)
 
 ## 🔍 Observations
 %0, %1, and %2 correspond to result, x, and y
