@@ -34,10 +34,12 @@ _start:
 
 ### ✅ Step 2: Write C Interrupt Handler
 File: task13_timer_interrupt.c
+
 ![image](https://github.com/user-attachments/assets/06c82fbe-05ef-4cdc-a930-c4e70e28e1ac)
 
 ### ✅ Step 3: Create Linker Script
 File: interrupt.ld
+
 ![image](https://github.com/user-attachments/assets/a122ca7f-9d28-4d00-bbaf-59d64fc29324)
 
 ### ✅ Step 4: Compilation Commands
@@ -51,7 +53,7 @@ file task13_timer_interrupt.elf
 
 #### 🧠 Interrupt handler visible:
 riscv32-unknown-elf-nm task13_timer_interrupt.elf | grep interrupt
-# ➜ 0000000c T handle_mtimer_interrupt
+ ➜ 0000000c T handle_mtimer_interrupt
 
 ### ⚙️ CSR Instructions Verification
 command used - riscv32-unknown-elf-objdump -d task13_timer_interrupt.elf | grep -A 10 -B 5 "csr"
