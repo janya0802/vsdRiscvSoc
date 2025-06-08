@@ -15,7 +15,7 @@ riscv32-unknown-elf-gcc — cross compiler
 No extra libraries were required for this step
 
 
-##output : ![image](https://github.com/user-attachments/assets/aee9979d-af03-47c1-88e2-411279c7b5d4)
+## OUTPUT : ![image](https://github.com/user-attachments/assets/aee9979d-af03-47c1-88e2-411279c7b5d4)
 
 
 ##  🧾 Understanding Prologue and Epilogue
