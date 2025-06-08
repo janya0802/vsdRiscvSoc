@@ -1,4 +1,4 @@
-# Task-2: Compile "Hello, RISC-V"
+# Task-2: 📚 Compile "Hello, RISC-V"
 
 ## 🎯 Objective:
 ##### To write and compile the simplest bare-metal C program using the installed toolchain.
@@ -31,9 +31,11 @@ file hello.elf
 
 ---- 
 
-## Output : ![image](https://github.com/user-attachments/assets/5440739d-ac77-4f7e-914e-3849dd9679aa)
+## ✅ Output :
+![image](https://github.com/user-attachments/assets/5440739d-ac77-4f7e-914e-3849dd9679aa)
 
-## Use : Validates the toolchain setup and prepares a minimal RISC-V executable (ELF).
+## ✔️ Use :
+Validates the toolchain setup and prepares a minimal RISC-V executable (ELF).
 
 
 
