@@ -1,6 +1,6 @@
 # Task-2: Compile "Hello, RISC-V"
 
-## Objective:
+## 🎯 Objective:
 ##### To write and compile the simplest bare-metal C program using the installed toolchain.
 ---
 
