@@ -7,7 +7,7 @@
 We will write a very basic hello world kind of program in c and will cross-compile for rv32imc architecture, and verify the output elf file.
 
 ---
-# Step 1: Create the Source File
+## Step 1: Create the Source File
 
 Create a file named hello.c:
 nano hello.c
@@ -31,9 +31,9 @@ file hello.elf
 
 ---- 
 
-## output : ![image](https://github.com/user-attachments/assets/5440739d-ac77-4f7e-914e-3849dd9679aa)
+## Output : ![image](https://github.com/user-attachments/assets/5440739d-ac77-4f7e-914e-3849dd9679aa)
 
-## use : Validates the toolchain setup and prepares a minimal RISC-V executable (ELF).
+## Use : Validates the toolchain setup and prepares a minimal RISC-V executable (ELF).
 
 
 
