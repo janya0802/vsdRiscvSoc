@@ -7,7 +7,7 @@
 We will write a very basic hello world kind of program in c and will cross-compile for rv32imc architecture, and verify the output elf file.
 
 ---
-## Step 1: Create the Source File
+## Step 1: 💻 Create the Source File
 
 Create a file named hello.c:
 nano hello.c
@@ -22,10 +22,10 @@ int main()
 }
 
 
-## Step 2: Compile for RISC-V
+## Step 2: 💻  Compile for RISC-V
 riscv32-unknown-elf-gcc -o hello.elf hello.c
 
-## Step 3: Verify the Output File
+## Step 3: 💻 Verify the Output File
 Check that the compiled file is an ELF file:
 file hello.elf
 
