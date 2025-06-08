@@ -2,6 +2,9 @@
 
 The goal is to download, install and verify the risc-v toolchain on pc.
 
+## Objective :
+To install and verify a working RISC-V toolchain on a Linux machine.
+
 ##Step 1: Download the Toolchain
 
 Download the RISC-V toolchain from the following link:
@@ -30,8 +33,7 @@ riscv32-unknown-elf-gcc (GCC) 14.2.0 ![image](https://github.com/user-attachment
 riscv32-unknown-elf-objdump (GNU Binutils) 2.40 ![image](https://github.com/user-attachments/assets/26129e4f-fcc0-470f-868c-a6abaf8bca6c)
 
 riscv32-unknown-elf-gdb (GDB) 15.2 ![image](https://github.com/user-attachments/assets/7579e28d-2c3a-4c11-98ff-f2bf8471b9ef)
-## Objective :
-To install and verify a working RISC-V toolchain on a Linux machine.
+
 ## Use : 
 Enables RISC-V program compilation, disassembly, and debugging using open-source tools.
 
