@@ -2,7 +2,7 @@
 
 The goal is to download, install and verify the risc-v toolchain on pc.
 
-## Objective :
+## 🎯 Objective :
 To install and verify a working RISC-V toolchain on a Linux machine.
 
 ##Step 1: Download the Toolchain
