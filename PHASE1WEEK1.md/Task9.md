@@ -12,6 +12,7 @@ To explore how **inline assembly** works in C using the RISC-V architecture. Thi
 
 We created a simple C file to perform addition using inline RISC-V assembly:
 ![image](https://github.com/user-attachments/assets/050c192d-81fd-4856-9616-72589221d8fe)
+
 This code tells the compiler to use the add RISC-V instruction to add a and b, storing the result in the result variable.
 
 ### 🛠️ Step 2: Compile the Program 
