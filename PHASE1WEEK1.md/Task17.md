@@ -50,7 +50,8 @@ Command - qemu-system-riscv32 -nographic -machine sifive_e -kernel endianness.el
 🔍 We used objdump to confirm the ELF is correctly built: riscv32-unknown-elf-objdump -d endianness.elf | less
 ![image](https://github.com/user-attachments/assets/b1d75006-f383-42b9-bd80-89ff511dc817)
 
-### 📉 Limitation: QEMU's sifive_e machine sometimes does not print UART output without additional firmware (like OpenSBI or proper device-tree initialization).
+### 📉 Limitation: 
+QEMU's sifive_e machine sometimes does not print UART output without additional firmware (like OpenSBI or proper device-tree initialization).
 
 ## ✅ Learning Outcome
 Understood endianness concept practically on a RISC-V target.
