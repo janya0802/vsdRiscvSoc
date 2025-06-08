@@ -43,7 +43,8 @@ downloaded python library using sudo apt python3.10 and sudo pythondev3.10
 
 
 
-## Output : ![image](https://github.com/user-attachments/assets/dcecd229-e7c5-4d49-aeba-9dd0a375f264)
+## Output :
+![image](https://github.com/user-attachments/assets/dcecd229-e7c5-4d49-aeba-9dd0a375f264)
 
  ![image](https://github.com/user-attachments/assets/d975c10f-1b5f-43a6-96c3-736d213c2b9f)
 
